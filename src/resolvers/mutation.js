@@ -13,20 +13,15 @@ const Mutation = {
       throw new Error('Email already exist.');
     }
     // Validate password
-    if (args.password.trim().length() < 6) {
+    if (args.password.trim().length < 6) {
       throw new Error('Password must be at least 6 characters');
     }
     const password = await bcrypt.hash(args.password, 10);
-    return User.create(...args, email, password);
+    return User.create({ ...args, email, password });
+  },
+  createProduct: (parent, args, context, info) => {
+    const userId = '5e358d734dbef724a46f2753';
   }
 };
-const Query = {
-  user: (parent, args, context, info) => User.findById(args.id),
-  users: (parent, args, context, info) => User.find()
-};
-export const resolvers = {
-  Query,
-  Mutation
-};
 
-export default resolvers;
+export default Mutation;
