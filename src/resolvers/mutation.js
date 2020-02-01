@@ -21,11 +21,22 @@ const Mutation = {
     return User.create({ ...args, email, password });
   },
   createProduct: async (parent, args, context, info) => {
-    const userId = '5e359654aae8d62fbd580311';
+    const userId = '5e35a1aae1d99e34434840b7';
     if (!args.description || !args.price || !args.imageUrl) {
       throw new Error('Please provide all required fields.');
     }
     const product = await Product.create({ ...args, user: userId });
+    const user = await User.findById(userId);
+    if (!user.products) {
+      user.products = [product];
+    } else {
+      user.products.push(product);
+    }
+    await user.save();
+    return Product.findById(product.id).populate({
+      path: 'user',
+      populate: { path: 'products' }
+    });
   }
 };
 
