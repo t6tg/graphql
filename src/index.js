@@ -1,11 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import server from './server';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const DB_User = 'admin';
-const DB_Password = 'james';
-const DB_Name = 'ecommerce';
-const PORT = 4444;
+const { DB_Name, DB_User, DB_Password, PORT } = process.env;
 
 const createServer = async () => {
   try {
