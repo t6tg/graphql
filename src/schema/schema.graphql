@@ -6,7 +6,7 @@ type Query {
 
 type Mutation {
   signup(name: String!, email: String!, password: String!): User
-  createProduct(description: String!, price: Float!,imageUrl: String!): Product
+  createProduct(description: String!, price: Float!, imageUrl: String!): Product
 }
 
 type User {
@@ -17,10 +17,10 @@ type User {
   products: [Product]
 }
 
-type Product: {
-    id: ID!
-    description: String!
-    price: Float!
-    imageUrl: String!
-    user: User!
+type Product {
+  id: ID!
+  description: String!
+  price: Float!
+  imageUrl: String!
+  user: User!
 }

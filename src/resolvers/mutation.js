@@ -1,4 +1,5 @@
 import User from '../models/user';
+import Product from '../models/product';
 import bcrypt from 'bcryptjs';
 
 const Mutation = {
@@ -19,8 +20,12 @@ const Mutation = {
     const password = await bcrypt.hash(args.password, 10);
     return User.create({ ...args, email, password });
   },
-  createProduct: (parent, args, context, info) => {
-    const userId = '5e358d734dbef724a46f2753';
+  createProduct: async (parent, args, context, info) => {
+    const userId = '5e359654aae8d62fbd580311';
+    if (!args.description || !args.price || !args.imageUrl) {
+      throw new Error('Please provide all required fields.');
+    }
+    const product = await Product.create({ ...args, user: userId });
   }
 };
 
