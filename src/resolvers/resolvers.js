@@ -1,4 +1,3 @@
-const { gql } = require('apollo-server-express');
 // fake database
 const users = [
   {
@@ -28,15 +27,5 @@ export const resolvers = {
     users: (parent, args, context, info) => users
   }
 };
-export const typeDefs = gql`
-  type Query {
-    me: User!
-    user(id: ID!): User
-    users: [User]!
-  }
 
-  type User {
-    id: ID!
-    name: String!
-  }
-`;
+export default resolvers;

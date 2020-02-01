@@ -1,20 +1,30 @@
 import express from 'express';
-const { ApolloServer } = require('apollo-server-express');
-const { typeDefs, resolvers } = require('./schema/');
+import mongoose from 'mongoose';
+import server from './server';
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers
-});
-
-const app = express();
-
+const DB_User = 'admin';
+const DB_Password = 'james';
+const DB_Name = 'ecommerce';
 const PORT = 4444;
 
-server.applyMiddleware({ app });
+const createServer = async () => {
+  try {
+    await mongoose.connect(
+      `mongodb+srv://${DB_User}:${DB_Password}@graphql-basic-zimq8.mongodb.net/${DB_Name}?retryWrites=true&w=majority`,
+      { useUnifiedTopology: true }
+    );
+    const app = express();
 
-app.listen({ port: PORT }, () =>
-  console.log(
-    `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
-  )
-);
+    server.applyMiddleware({ app });
+
+    app.listen({ port: PORT }, () =>
+      console.log(
+        `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+      )
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+createServer();
