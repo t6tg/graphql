@@ -7,7 +7,7 @@
     "start": "nodemon -r esm --use-strict src/index.js"
   },
   "dependencies": {
-    "apollo-server-express": "^2.9.16",
+    "apollo-server-express": "^2.14.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
